@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -165,7 +165,11 @@ vim.opt.confirm = true
 vim.opt.smartindent = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
+
+-- Mark the 80th column
+vim.opt.colorcolumn = '80'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -919,6 +923,7 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('ayu').setup {
         overrides = {
+          LineNr = { fg = colors.comment },
           Comment = { fg = colors.comment }, -- Disable italics in comments
         },
       }
@@ -994,6 +999,20 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+
+  {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require('autoclose').setup {
+        keys = {
+          ["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = { 'gitcommit', 'text', 'markdown' } },
+        },
+        options = {
+          disabled_filetypes = {},
+        },
+      }
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
