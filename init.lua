@@ -214,12 +214,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = {"*"},
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+  pattern = { '*' },
   callback = function()
-  local save_cursor = vim.fn.getpos(".")
-  pcall(function() vim.cmd [[%s/\s\+$//e]] end)
-  vim.fn.setpos(".", save_cursor)
+    local save_cursor = vim.fn.getpos '.'
+    pcall(function()
+      vim.cmd [[%s/\s\+$//e]]
+    end)
+    vim.fn.setpos('.', save_cursor)
   end,
 })
 
@@ -912,14 +914,14 @@ require('lazy').setup({
     'Shatur/neovim-ayu',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      local colors = require('ayu.colors')
+      local colors = require 'ayu.colors'
       colors.generate()
       ---@diagnostic disable-next-line: missing-fields
-      require('ayu').setup({
+      require('ayu').setup {
         overrides = {
-          Comment = { fg = colors.comment } -- Disable italics in comments
+          Comment = { fg = colors.comment }, -- Disable italics in comments
         },
-      })
+      }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
